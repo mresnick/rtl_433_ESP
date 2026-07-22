@@ -372,7 +372,22 @@ void rtlSetup() {
     // end of fragment
 
 #else
-    memcpy(&cfg->devices[0], &fineoffset_WH25, sizeof(r_device));
+    memcpy(&cfg->devices[0], &fineoffset_WH2, sizeof(r_device));
+    memcpy(&cfg->devices[1], &fineoffset_WH25, sizeof(r_device));
+    memcpy(&cfg->devices[2], &fineoffset_WH51, sizeof(r_device));
+    memcpy(&cfg->devices[3], &fineoffset_WH0530, sizeof(r_device));
+    memcpy(&cfg->devices[4], &fineoffset_wh1050, sizeof(r_device));
+    memcpy(&cfg->devices[5], &fineoffset_wh1080, sizeof(r_device));
+    memcpy(&cfg->devices[6], &fineoffset_wh1080_fsk, sizeof(r_device));
+    memcpy(&cfg->devices[7], &fineoffset_wh31l, sizeof(r_device));
+    memcpy(&cfg->devices[8], &fineoffset_wh43, sizeof(r_device));
+    memcpy(&cfg->devices[9], &fineoffset_wh45, sizeof(r_device));
+    memcpy(&cfg->devices[10], &fineoffset_wh46, sizeof(r_device));
+    memcpy(&cfg->devices[11], &fineoffset_wh55, sizeof(r_device));
+    memcpy(&cfg->devices[12], &fineoffset_wn34, sizeof(r_device));
+    memcpy(&cfg->devices[13], &fineoffset_ws80, sizeof(r_device));
+    memcpy(&cfg->devices[14], &fineoffset_ws85, sizeof(r_device));
+    memcpy(&cfg->devices[15], &fineoffset_ws90, sizeof(r_device));
 #endif
 
 #ifdef RTL_FLEX
