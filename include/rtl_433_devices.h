@@ -300,16 +300,21 @@
   /* Add new decoders here. */
 #else
 /**
- * Subset of devices that I have access to and have tested with
+ * Restricted to just the Fine Offset WH24/WH65B/WS69 decoder. Running the
+ * full device list against every capture is slow enough to corrupt/truncate
+ * captures on this hardware (see NorthernMan54/rtl_433_ESP#164) -- isolating
+ * to the one relevant decoder is the documented fix.
  */
 #define DEVICES        \
-  DECL(acurite_986)    \
-  DECL(skylink_motion) \
-  DECL(prologue)       \
-  DECL(philips_aj3650) \
-  DECL(fineoffset_WH51) \
+  DECL(fineoffset_WH25) \
   /* Add new personal decoders here. */
-  #define NUMOFDEVICES 5
+  #define NUMOFDEVICES 1
+  // NUMOF_OOK_DEVICES/NUMOF_FSK_DEVICES are only defined in the #ifndef
+  // MY_DEVICES branch above, but signalDecoder.cpp's rtlSetup() always
+  // references one of them regardless of MY_DEVICES -- without these, this
+  // branch fails to compile.
+  #define NUMOF_OOK_DEVICES 1
+  #define NUMOF_FSK_DEVICES 1
 #endif
 
 #define DECL(name) extern r_device name;
