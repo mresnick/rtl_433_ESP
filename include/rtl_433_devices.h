@@ -300,39 +300,33 @@
   /* Add new decoders here. */
 #else
 /**
- * Restricted to the whole Fine Offset device family, rather than betting on
- * one specific decoder -- whichever one this exact sensor unit/hardware
- * revision actually matches, it matches. Running the full ~280-device list
- * against every capture is slow enough to corrupt/truncate captures on this
- * hardware (see NorthernMan54/rtl_433_ESP#164); restricting to just this one
- * manufacturer's ~16 decoders keeps that fix while not over-guessing which
- * exact decoder is correct.
+ * Restricted to Fine Offset weather-station decoders (temperature, humidity,
+ * pressure, wind, rain, solar/UV), rather than betting on one specific
+ * decoder -- whichever one this exact sensor unit/hardware revision actually
+ * matches, it matches. Running the full ~280-device list against every
+ * capture is slow enough to corrupt/truncate captures on this hardware (see
+ * NorthernMan54/rtl_433_ESP#164). Non-weather-station Fine Offset devices
+ * (soil moisture, lightning, air quality, water leak, standalone temp probes)
+ * are intentionally excluded -- out of scope for this project.
  */
 #define DEVICES                 \
   DECL(fineoffset_WH2)          \
   DECL(fineoffset_WH25)         \
-  DECL(fineoffset_WH51)         \
   DECL(fineoffset_WH0530)       \
   DECL(fineoffset_wh1050)       \
   DECL(fineoffset_wh1080)       \
   DECL(fineoffset_wh1080_fsk)   \
-  DECL(fineoffset_wh31l)        \
-  DECL(fineoffset_wh43)         \
-  DECL(fineoffset_wh45)         \
-  DECL(fineoffset_wh46)         \
-  DECL(fineoffset_wh55)         \
-  DECL(fineoffset_wn34)         \
   DECL(fineoffset_ws80)         \
   DECL(fineoffset_ws85)         \
-  DECL(fineoffset_ws90)         \
-  /* Add new personal decoders here. */
-  #define NUMOFDEVICES 16
+  DECL(fineoffset_ws90)
+
+  #define NUMOFDEVICES 9
   // NUMOF_OOK_DEVICES/NUMOF_FSK_DEVICES are only defined in the #ifndef
   // MY_DEVICES branch above, but signalDecoder.cpp's rtlSetup() always
   // references one of them regardless of MY_DEVICES -- without these, this
   // branch fails to compile.
-  #define NUMOF_OOK_DEVICES 16
-  #define NUMOF_FSK_DEVICES 16
+  #define NUMOF_OOK_DEVICES 9
+  #define NUMOF_FSK_DEVICES 9
 #endif
 
 #define DECL(name) extern r_device name;
