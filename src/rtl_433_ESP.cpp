@@ -593,9 +593,17 @@ void rtl_433_ESP::rtl_433_ReceiverTask(void* pvParameters) {
       // receiver running for an additional 150,000
       else if (micros() - signalEnd < MINIMUM_SIGNAL_LENGTH)
 #else
+      #ifndef FSK_DROPOUT_GATE_US
+      #define FSK_DROPOUT_GATE_US 30000
+      #endif
       // If we received a signal but had a minor drop in strength keep the
-      // receiver running for an additional 40,000
-      else if (micros() - signalEnd < MINIMUM_SIGNAL_LENGTH && micros() - signalStart > 30000)
+      // receiver running for an additional MINIMUM_SIGNAL_LENGTH, but only
+      // once we're already FSK_DROPOUT_GATE_US into the signal. Short FSK
+      // bursts (e.g. Fine Offset weather-station packets, ~12ms total)
+      // finish before the default 30ms gate, so with that default a single
+      // mid-packet RSSI dip below threshold always looks like end-of-signal
+      // for those protocols -- tunable via a build flag.
+      else if (micros() - signalEnd < MINIMUM_SIGNAL_LENGTH && micros() - signalStart > FSK_DROPOUT_GATE_US)
       // else if (micros() - signalEnd < PD_MAX_GAP_MS)
 #endif
       {
